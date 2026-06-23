@@ -18,7 +18,7 @@ public struct TokenBucket {
     /// Initialisation
     /// - Parameters:
     ///   - maxSize: The maximum amount of token the bucket is able to hold
-    ///   - refillRate: How often tokens should get added to the bucket
+    ///   - insertDuration: How often one token should get added to the bucket
     public init(maxSize: Int, insertDuration: Duration) {
         self.maxSize         = maxSize
         self.currentSize     = maxSize
