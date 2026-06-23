@@ -19,7 +19,7 @@ This package is built using Swift Package Manager. Add the package dependency to
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/your-username/SwiftRL.git", from: "0.1.0"),
+    .package(url: "https://github.com/BoseSj/SwiftRL.git", from: "0.1.0"),
 ],
 ```
 
