@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:SwiftRL}",
+            "name": "Debug SwiftRL",
+            "target": "SwiftRL",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug SwiftRL"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:SwiftRL}",
+            "name": "Release SwiftRL",
+            "target": "SwiftRL",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release SwiftRL"
+        }
+    ]
+}
