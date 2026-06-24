@@ -10,10 +10,10 @@ import Foundation
 
 @available(macOS 15.0, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
 public struct TokenBucket {
-    let maxSize         : Int
-    var currentSize     : Int
-    let insertDuration  : Duration
-    var lastRefill      : ContinuousClock.Instant
+    private let maxSize         : Int
+    private var currentSize     : Int
+    private let insertDuration  : Duration
+    private var lastRefill      : ContinuousClock.Instant
     
     /// Initialisation
     /// - Parameters:
@@ -34,15 +34,15 @@ public struct TokenBucket {
     }
     
     /// ## Refilling Algorithm
-    /// Calculate elapsed time
-    /// Calculate how many token could have been added during this time
-    /// Making sure it doesn't overflows
-    /// Eg.
-    /// A token is to be added for each 5 sec, bucket volume is 10
-    /// Token quantity in bucket after last consumption is 5
-    /// So after 6 seconds from last consumption current token quantity should be 6
-    /// With 1 second in hand
-    /// But on if the bucket gets filled up to max then time in hand should be ignored, and calculation will start from later consumptions
+    /// - Calculate elapsed time
+    /// - Calculate how many token could have been added during this time
+    /// - Making sure it doesn't overflows
+    /// - Eg.
+    ///     - A token is to be added for each 5 sec, bucket volume is 10
+    ///     - Token quantity in bucket after last consumption is 5
+    ///     - So after 6 seconds from last consumption current token quantity should be 6
+    ///     - With 1 second in hand
+    ///     - But on if the bucket gets filled up to max then time in hand should be ignored, and calculation will start from later consumptions
     @discardableResult
     mutating private func refill() throws(RFError) -> Bool {
         let elapsedTime   = lastRefill.duration(to: .now)
@@ -53,7 +53,6 @@ public struct TokenBucket {
         
         if currentSize < maxSize {
             let tokensCost  = insertDuration * Double(tokensToBeAdded)
-            // let timeInHand  = elapsedTime - tokensCost
             lastRefill      = lastRefill.advanced(by: tokensCost)
         } else {
             lastRefill      = .now
