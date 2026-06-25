@@ -8,8 +8,7 @@
 import Foundation
 
 
-@available(macOS 15.0, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
-public struct TokenBucket {
+public struct TokenBucket: RLAlgo {
     private let maxSize         : Int
     private var currentSize     : Int
     private let insertDuration  : Duration
