@@ -8,11 +8,13 @@
 import Foundation
 
 public enum RLError: Error {
+    case invalidRate
     case limitExceeded
     case refillError(RFError)
     
     var message: String {
         switch self {
+            case .invalidRate : "Rate should always be positive"
             case .limitExceeded : "Rate Limit Exceeded"
             case let .refillError(error): error.message
         }

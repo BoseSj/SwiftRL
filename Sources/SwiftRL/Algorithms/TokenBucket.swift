@@ -8,7 +8,7 @@
 import Foundation
 
 
-public struct TokenBucket: RLAlgo {
+struct TokenBucket: RLAlgo {
     private let maxSize         : Int
     private var currentSize     : Int
     private let insertDuration  : Duration
@@ -18,7 +18,8 @@ public struct TokenBucket: RLAlgo {
     /// - Parameters:
     ///   - maxSize: The maximum amount of token the bucket is able to hold
     ///   - insertDuration: How often one token should get added to the bucket
-    public init(maxSize: Int, insertDuration: Duration) {
+	init(maxSize: Int, insertDuration: Duration) throws(RLError) {
+		guard maxSize > 0 else { throw .invalidRate }
         self.maxSize         = maxSize
         self.currentSize     = maxSize
         self.insertDuration  = insertDuration
@@ -26,7 +27,7 @@ public struct TokenBucket: RLAlgo {
     }
     
     /// Try Consuming token
-    mutating public func consume() throws(RLError) {
+    mutating func consume() throws(RLError) {
         _ = try? refill()
         guard currentSize > 0 else { throw .limitExceeded }
         currentSize -= 1

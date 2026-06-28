@@ -18,7 +18,7 @@ struct SlidingWindow: RLAlgo {
         self.clock    = .now
     }
     
-    mutating public func consume() throws(RLError) {
+    mutating func consume() throws(RLError) {
         guard windowAvailability() else { throw RLError.limitExceeded }
         
         self.saveProgress()
